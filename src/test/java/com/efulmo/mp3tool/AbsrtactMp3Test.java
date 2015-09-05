@@ -1,6 +1,6 @@
 package com.efulmo.mp3tool;
 
-import com.efulmo.mp3tool.Util.FileUtil;
+import com.efulmo.mp3tool.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;

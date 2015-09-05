@@ -1,6 +1,6 @@
 package com.efulmo.mp3tool.command;
 
-import com.efulmo.mp3tool.Util.FileUtil;
+import com.efulmo.mp3tool.util.FileUtil;
 
 import java.io.File;
 import java.util.List;

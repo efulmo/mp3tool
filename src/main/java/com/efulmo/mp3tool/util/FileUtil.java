@@ -1,4 +1,4 @@
-package com.efulmo.mp3tool.Util;
+package com.efulmo.mp3tool.util;
 
 import java.io.*;
 import java.nio.channels.FileChannel;

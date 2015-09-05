@@ -1,6 +1,6 @@
 package com.efulmo.mp3tool;
 
-import com.efulmo.mp3tool.Util.FileUtil;
+import com.efulmo.mp3tool.util.FileUtil;
 import com.efulmo.mp3tool.command.CopyFlattenCommand;
 import org.junit.Test;
 
