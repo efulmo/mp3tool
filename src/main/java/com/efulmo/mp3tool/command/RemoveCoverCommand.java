@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class RemoveCoverCommand implements Command {
+public class RemoveCoverCommand extends AbstractMp3Command implements Command {
 
     public static final String NAME = "remove-cover";
     public static final String INTERACTIVELY = "interactively";
@@ -27,7 +27,7 @@ public class RemoveCoverCommand implements Command {
 
     @Override
     public String getUsage() {
-        return "remove-cover <directory> [interactively]";
+        return NAME + " <directory> [" + INTERACTIVELY + "]";
     }
 
     @Override
@@ -63,28 +63,6 @@ public class RemoveCoverCommand implements Command {
         }
 
         removeCovers(mp3sWithCovers);
-    }
-
-    private List<File> findMp3Files(File directory) {
-        List<File> mp3s = listMp3Files(directory);
-
-        return mp3s;
-    }
-
-    private List<File> listMp3Files(File file) {
-        List<File> mp3s = new ArrayList<File>();
-        if (file.isDirectory()) {
-            for (File nestedFile : file.listFiles()) {
-                mp3s.addAll(listMp3Files(nestedFile));
-            }
-        } else {
-            String extension = getExtension(file.getName());
-            if ("mp3".equals(extension)) {
-                mp3s.add(file);
-            }
-        }
-
-        return mp3s;
     }
 
     private List<File> retainMp3sWithCovers(List<File> files) {
@@ -132,15 +110,6 @@ public class RemoveCoverCommand implements Command {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private String getExtension(String fileName) {
-        int dotIndex = fileName.lastIndexOf('.');
-        if (dotIndex == -1) {
-            dotIndex = 0;
-        }
-
-        return fileName.substring(dotIndex + 1);
     }
 
     private boolean hasCover(Mp3File mp3File) {
