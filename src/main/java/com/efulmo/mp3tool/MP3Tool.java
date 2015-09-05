@@ -2,6 +2,7 @@ package com.efulmo.mp3tool;
 
 import com.efulmo.mp3tool.command.CalculateDurationCommand;
 import com.efulmo.mp3tool.command.Command;
+import com.efulmo.mp3tool.command.CopyFlattenCommand;
 import com.efulmo.mp3tool.command.RemoveCoverCommand;
 
 import java.util.Arrays;
@@ -9,7 +10,10 @@ import java.util.List;
 
 public class MP3Tool {
 
-    private static final List<Command> availableCommands = Arrays.<Command>asList(new RemoveCoverCommand(), new CalculateDurationCommand());
+    private static final List<Command> availableCommands = Arrays.<Command>asList(
+            new RemoveCoverCommand(),
+            new CalculateDurationCommand(),
+            new CopyFlattenCommand());
 
     public static void main(String[] args) {
         MP3Tool mp3Tool = new MP3Tool();

@@ -3,11 +3,14 @@ package com.efulmo.mp3tool.command;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by efulmo on 05.09.15.
  */
-public abstract class AbstractMp3Command {
+public abstract class AbstractMp3Command implements Command {
+
+    protected static final String ANSWER_YES = "y";
 
     protected List<File> findMp3Files(File directory) {
         List<File> mp3s = listMp3Files(directory);
@@ -38,5 +41,9 @@ public abstract class AbstractMp3Command {
         }
 
         return fileName.substring(dotIndex + 1);
+    }
+
+    protected String getAnswer() {
+        return new Scanner(System.in).next();
     }
 }

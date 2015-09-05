@@ -6,13 +6,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
-public class RemoveCoverCommand extends AbstractMp3Command implements Command {
+public class RemoveCoverCommand extends AbstractMp3Command {
 
     public static final String NAME = "remove-cover";
     public static final String INTERACTIVELY = "interactively";
-    private static final String ANSWER_YES = "y";
     private static final String NO_CCOVER_SUFFIX = ".nocover";
 
     @Override
@@ -85,10 +83,6 @@ public class RemoveCoverCommand extends AbstractMp3Command implements Command {
         return filesWithCovers;
     }
 
-    private String getAnswer() {
-        return new Scanner(System.in).next();
-    }
-
     private void removeCovers(List<File> files) {
         try {
             for (File file : files) {
@@ -104,7 +98,7 @@ public class RemoveCoverCommand extends AbstractMp3Command implements Command {
                     file.delete();
                     new File(tempFilePath).renameTo(file);
 
-                    System.out.println("OK!");
+                    System.out.println("OK.");
                 }
             }
         } catch (Exception e) {

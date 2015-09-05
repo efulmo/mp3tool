@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by efulmo on 05.09.15.
  */
-public class CalculateDurationCommand extends AbstractMp3Command implements Command {
+public class CalculateDurationCommand extends AbstractMp3Command {
 
     public static final String NAME = "calculate-duration";
 

@@ -8,7 +8,7 @@ import java.io.File;
 
 import static org.junit.Assert.assertTrue;
 
-public class RemoveCoverTest extends AbsrtactMp3Test {
+public class RemoveCoverCommandTest extends AbsrtactMp3Test {
 
     @Test
     public void testCoverRemoved() throws Exception {

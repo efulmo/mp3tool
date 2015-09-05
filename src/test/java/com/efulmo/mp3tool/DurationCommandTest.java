@@ -12,17 +12,17 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by efulmo on 05.09.15.
  */
-public class DurationTest extends AbsrtactMp3Test {
+public class DurationCommandTest extends AbsrtactMp3Test {
 
     @Test
     public void testDuration() throws Exception {
-        PrintStream oldSout = System.out;
+        prepareEnvironment();
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
-        MP3Tool.main(new String[]{CalculateDurationCommand.NAME, TEST_DIR});
+        MP3Tool.main(new String[]{CalculateDurationCommand.NAME, TEST_DEST_DIR});
 
         String result = out.toString();
-        assertThat(result, containsString("0:9:54"));
+        assertThat(result, containsString("0:4:57"));
     }
 }
