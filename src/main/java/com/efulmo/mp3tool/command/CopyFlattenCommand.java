@@ -28,7 +28,7 @@ public class CopyFlattenCommand extends AbstractMp3Command {
 
         @Override
         protected boolean isCommandNameMatches() {
-            return getCommand().contains(NAME);
+            return getCommand().contains(CODE);
         }
 
         private String getCommand() {
@@ -48,7 +48,8 @@ public class CopyFlattenCommand extends AbstractMp3Command {
         }
     }
 
-    public static final String NAME = "c";
+    public static final String NAME = "copy-flatten";
+    public static final String CODE = "f";
     public static final String QUIETLY = "q";
 
     @Override
@@ -63,7 +64,7 @@ public class CopyFlattenCommand extends AbstractMp3Command {
 
     @Override
     public String getUsage() {
-        return NAME + "[" + QUIETLY + "]" + "<from> <to>";
+        return CODE + "[" + QUIETLY + "]" + " <from> <to>";
     }
 
     @Override

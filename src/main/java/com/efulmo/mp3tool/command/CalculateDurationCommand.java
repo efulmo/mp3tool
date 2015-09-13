@@ -28,7 +28,7 @@ public class CalculateDurationCommand extends AbstractMp3Command {
 
         @Override
         protected boolean isCommandNameMatches() {
-            return getCommand().contains(NAME);
+            return getCommand().contains(CODE);
         }
 
         private String getCommand() {
@@ -40,7 +40,8 @@ public class CalculateDurationCommand extends AbstractMp3Command {
         }
     }
 
-    public static final String NAME = "d";
+    public static final String NAME = "calculate-duration";
+    public static final String CODE = "d";
 
     @Override
     public String getName() {
@@ -54,7 +55,7 @@ public class CalculateDurationCommand extends AbstractMp3Command {
 
     @Override
     public String getUsage() {
-        return NAME + " <directory>";
+        return CODE + " <directory>";
     }
 
     @Override

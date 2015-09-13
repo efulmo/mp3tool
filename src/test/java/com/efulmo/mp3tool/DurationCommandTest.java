@@ -20,7 +20,7 @@ public class DurationCommandTest extends AbsrtactMp3Test {
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
-        MP3Tool.main(new String[]{CalculateDurationCommand.NAME, TEST_DEST_DIR});
+        MP3Tool.main(new String[]{CalculateDurationCommand.CODE, TEST_DEST_DIR});
 
         String result = out.toString();
         assertThat(result, containsString("0:4:57"));

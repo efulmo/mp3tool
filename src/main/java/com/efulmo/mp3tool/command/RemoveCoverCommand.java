@@ -27,7 +27,7 @@ public class RemoveCoverCommand extends AbstractMp3Command {
 
         @Override
         protected boolean isCommandNameMatches() {
-            return getCommand().contains(NAME);
+            return getCommand().contains(CODE);
         }
 
         private String getCommand() {
@@ -43,7 +43,8 @@ public class RemoveCoverCommand extends AbstractMp3Command {
         }
     }
 
-    public static final String NAME = "r";
+    public static final String NAME = "remove-covers";
+    public static final String CODE = "r";
     public static final String QUIETLY = "q";
     private static final String NO_COVER_SUFFIX = ".nocover";
 
@@ -59,7 +60,7 @@ public class RemoveCoverCommand extends AbstractMp3Command {
 
     @Override
     public String getUsage() {
-        return NAME + "[" + QUIETLY + "]" + " <directory>";
+        return CODE + "[" + QUIETLY + "]" + " <directory>";
     }
 
     @Override

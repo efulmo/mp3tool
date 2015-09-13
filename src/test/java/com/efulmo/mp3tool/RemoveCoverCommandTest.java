@@ -18,7 +18,7 @@ public class RemoveCoverCommandTest extends AbsrtactMp3Test {
         Mp3File mp3File = new Mp3File(file);
         assertTrue(mp3File.getId3v2Tag().getAlbumImage() != null);
 
-        MP3Tool.main(new String[] {RemoveCoverCommand.NAME + RemoveCoverCommand.QUIETLY, TEST_DEST_DIR});
+        MP3Tool.main(new String[] {RemoveCoverCommand.CODE + RemoveCoverCommand.QUIETLY, TEST_DEST_DIR});
 
         file = new File(TEST_DEST_DIR, TEST_MP3_FILE_NAME);
         mp3File = new Mp3File(file);
