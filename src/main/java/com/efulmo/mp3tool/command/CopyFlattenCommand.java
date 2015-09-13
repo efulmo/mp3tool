@@ -10,8 +10,46 @@ import java.util.List;
  */
 public class CopyFlattenCommand extends AbstractMp3Command {
 
-    public static final String NAME = "copy-flatten";
-    public static final String INTERACTIVELY = "interactively";
+    private class CopyFlattenCommandConfiguration extends AbstractMp3CommandConfiguration {
+
+        public CopyFlattenCommandConfiguration(List<String> arguments) {
+            super(arguments);
+        }
+
+        @Override
+        public boolean isValid() {
+            return isArgumentCountMatched() && isCommandNameMatches();
+        }
+
+        @Override
+        protected boolean isArgumentCountMatched() {
+            return arguments.size() == 3;
+        }
+
+        @Override
+        protected boolean isCommandNameMatches() {
+            return getCommand().contains(NAME);
+        }
+
+        private String getCommand() {
+            return arguments.get(0);
+        }
+
+        private String getFromDirectory() {
+            return arguments.get(1);
+        }
+
+        private String getToDirectory() {
+            return arguments.get(2);
+        }
+
+        private boolean isQuietly() {
+            return getCommand().contains(QUIETLY);
+        }
+    }
+
+    public static final String NAME = "c";
+    public static final String QUIETLY = "q";
 
     @Override
     public String getName() {
@@ -20,35 +58,37 @@ public class CopyFlattenCommand extends AbstractMp3Command {
 
     @Override
     public boolean validateArguments(List<String> arguments) {
-        return arguments.size() == 3 || arguments.size() == 4;
+        return new CopyFlattenCommandConfiguration(arguments).isValid();
     }
 
     @Override
     public String getUsage() {
-        return NAME + "<from> <to>";
+        return NAME + "[" + QUIETLY + "]" + "<from> <to>";
     }
 
     @Override
     public void execute(List<String> arguments) {
-        String from = arguments.get(1);
-        String to = arguments.get(2);
-        boolean interactively = false;
-        if (arguments.size() == 4) {
-            interactively = INTERACTIVELY.equals(arguments.get(3));
-        }
+        CopyFlattenCommandConfiguration configuration = new CopyFlattenCommandConfiguration(arguments);
 
-        copyFlatten(from, to, interactively);
+        String from = configuration.getFromDirectory();
+        String to = configuration.getToDirectory();
+        boolean quietly = configuration.isQuietly();
+
+        copyFlatten(from, to, quietly);
     }
 
-    private void copyFlatten(String from, String to, boolean interactively) {
+    private void copyFlatten(String from, String to, boolean quietly) {
         File fromDirectory = new File(from);
         List<File> files = findMp3Files(fromDirectory);
         System.out.println("Total MP3 files to copy: " + files.size());
 
-        long totalSize = calculateTotalSize(files);
-        System.out.println("Total size of files to be copied: " + prettySize(totalSize));
+        long totalSize = 0;
+        if (!files.isEmpty()) {
+            totalSize = calculateTotalSize(files);
+            System.out.println("Total size of files to be copied: " + prettySize(totalSize));
+        }
 
-        if (interactively) {
+        if (!quietly && !files.isEmpty()) {
             System.out.println("Copy them? (y/n)");
             String answer = getAnswer();
             if (!ANSWER_YES.equals(answer)) {

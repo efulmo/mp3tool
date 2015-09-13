@@ -10,7 +10,37 @@ import java.util.List;
  */
 public class CalculateDurationCommand extends AbstractMp3Command {
 
-    public static final String NAME = "calculate-duration";
+    private class CalculateDurationConfiguration extends AbstractMp3CommandConfiguration {
+
+        public CalculateDurationConfiguration(List<String> arguments) {
+            super(arguments);
+        }
+
+        @Override
+        public boolean isValid() {
+            return isArgumentCountMatched() && isCommandNameMatches();
+        }
+
+        @Override
+        protected boolean isArgumentCountMatched() {
+            return arguments.size() == 2;
+        }
+
+        @Override
+        protected boolean isCommandNameMatches() {
+            return getCommand().contains(NAME);
+        }
+
+        private String getCommand() {
+            return arguments.get(0);
+        }
+
+        private String getDirectory() {
+            return arguments.get(1);
+        }
+    }
+
+    public static final String NAME = "d";
 
     @Override
     public String getName() {
@@ -19,7 +49,7 @@ public class CalculateDurationCommand extends AbstractMp3Command {
 
     @Override
     public boolean validateArguments(List<String> arguments) {
-        return arguments.size() == 2;
+        return new CalculateDurationConfiguration(arguments).isValid();
     }
 
     @Override
@@ -29,7 +59,8 @@ public class CalculateDurationCommand extends AbstractMp3Command {
 
     @Override
     public void execute(List<String> arguments) {
-        String directory = arguments.get(1);
+        CalculateDurationConfiguration configuration = new CalculateDurationConfiguration(arguments);
+        String directory = configuration.getDirectory();
         calculateDuration(directory);
     }
 

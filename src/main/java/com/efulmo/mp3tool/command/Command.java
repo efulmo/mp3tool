@@ -8,7 +8,18 @@ import java.util.List;
 public interface Command {
 
     String getName();
+
     boolean validateArguments(List<String> arguments);
+
     String getUsage();
+
     void execute(List<String> arguments);
+
+    /**
+     * Created by efulmo on 13.09.15.
+     */
+    interface CommandConfiguration {
+
+        boolean isValid();
+    }
 }

@@ -10,6 +10,18 @@ import java.util.Scanner;
  */
 public abstract class AbstractMp3Command implements Command {
 
+    public abstract class AbstractMp3CommandConfiguration implements CommandConfiguration {
+        protected final List<String> arguments;
+
+        protected AbstractMp3CommandConfiguration(List<String> arguments) {
+            this.arguments = arguments;
+        }
+
+        protected abstract boolean isArgumentCountMatched();
+
+        protected abstract boolean isCommandNameMatches();
+    }
+
     protected static final String ANSWER_YES = "y";
 
     protected List<File> findMp3Files(File directory) {

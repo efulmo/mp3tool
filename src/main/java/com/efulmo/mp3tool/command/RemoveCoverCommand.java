@@ -9,9 +9,43 @@ import java.util.List;
 
 public class RemoveCoverCommand extends AbstractMp3Command {
 
-    public static final String NAME = "remove-cover";
-    public static final String INTERACTIVELY = "interactively";
-    private static final String NO_CCOVER_SUFFIX = ".nocover";
+    private class RemoveCoverCommandConfiguration extends AbstractMp3CommandConfiguration {
+
+        public RemoveCoverCommandConfiguration(List<String> arguments) {
+            super(arguments);
+        }
+
+        @Override
+        public boolean isValid() {
+            return isArgumentCountMatched() && isCommandNameMatches();
+        }
+
+        @Override
+        protected boolean isArgumentCountMatched() {
+            return arguments.size() == 2;
+        }
+
+        @Override
+        protected boolean isCommandNameMatches() {
+            return getCommand().contains(NAME);
+        }
+
+        private String getCommand() {
+            return arguments.get(0);
+        }
+
+        private String getDirectory() {
+            return arguments.get(1);
+        }
+
+        private boolean isQuietly() {
+            return getCommand().contains(QUIETLY);
+        }
+    }
+
+    public static final String NAME = "r";
+    public static final String QUIETLY = "q";
+    private static final String NO_COVER_SUFFIX = ".nocover";
 
     @Override
     public String getName() {
@@ -20,25 +54,24 @@ public class RemoveCoverCommand extends AbstractMp3Command {
 
     @Override
     public boolean validateArguments(List<String> arguments) {
-        return arguments.size() == 2 || arguments.size() == 3;
+        return new RemoveCoverCommandConfiguration(arguments).isValid();
     }
 
     @Override
     public String getUsage() {
-        return NAME + " <directory> [" + INTERACTIVELY + "]";
+        return NAME + "[" + QUIETLY + "]" + " <directory>";
     }
 
     @Override
     public void execute(List<String> arguments) {
-        String directory = arguments.get(1);
-        boolean interactively = false;
-        if (arguments.size() == 3) {
-            interactively = INTERACTIVELY.equals(arguments.get(2));
-        }
-        removeCover(directory, interactively);
+        RemoveCoverCommandConfiguration configuration = new RemoveCoverCommandConfiguration(arguments);
+        String directory = configuration.getDirectory();
+        boolean quietly = configuration.isQuietly();
+
+        removeCover(directory, quietly);
     }
 
-    private void removeCover(String directory, boolean interactively) {
+    private void removeCover(String directory, boolean quiet) {
         File directoryFile = new File(directory);
         List<File> mp3Files = findMp3Files(directoryFile);
         System.out.println("MP3 files found: " + mp3Files.size());
@@ -52,8 +85,8 @@ public class RemoveCoverCommand extends AbstractMp3Command {
 
         System.out.println("MP3 files with covers found: " + mp3sWithCovers.size());
 
-        if (interactively) {
-            System.out.println("Delete covers for them? (y/n)");
+        if (!quiet && !mp3sWithCovers.isEmpty()) {
+            System.out.println("Delete covers for all of them? (y/n)");
             String answer = getAnswer();
             if (!ANSWER_YES.equals(answer)) {
                 return;
@@ -122,6 +155,6 @@ public class RemoveCoverCommand extends AbstractMp3Command {
     }
 
     private String processFileName(String path) {
-        return path + NO_CCOVER_SUFFIX;
+        return path + NO_COVER_SUFFIX;
     }
 }
