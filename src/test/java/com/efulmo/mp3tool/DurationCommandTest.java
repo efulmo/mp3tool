@@ -23,6 +23,6 @@ public class DurationCommandTest extends AbsrtactMp3Test {
         MP3Tool.main(new String[]{CalculateDurationCommand.CODE, TEST_DEST_DIR});
 
         String result = out.toString();
-        assertThat(result, containsString("0:4:57"));
+        assertThat(result, containsString("0h 4m 57s"));
     }
 }

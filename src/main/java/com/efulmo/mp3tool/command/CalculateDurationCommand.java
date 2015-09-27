@@ -41,7 +41,7 @@ public class CalculateDurationCommand extends AbstractMp3Command {
     }
 
     public static final String NAME = "calculate-duration";
-    public static final String CODE = "d";
+    public static final String CODE = "duration";
 
     @Override
     public String getName() {
@@ -104,6 +104,6 @@ public class CalculateDurationCommand extends AbstractMp3Command {
             minutes = minutes % 60;
         }
 
-        return String.format("%d:%d:%d", hours, minutes, seconds);
+        return String.format("%dh %dm %ds", hours, minutes, seconds);
     }
 }

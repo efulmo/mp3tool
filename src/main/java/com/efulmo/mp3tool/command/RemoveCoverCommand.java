@@ -44,7 +44,7 @@ public class RemoveCoverCommand extends AbstractMp3Command {
     }
 
     public static final String NAME = "remove-covers";
-    public static final String CODE = "r";
+    public static final String CODE = "cover";
     public static final String QUIETLY = "q";
     private static final String NO_COVER_SUFFIX = ".nocover";
 

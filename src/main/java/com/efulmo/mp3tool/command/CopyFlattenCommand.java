@@ -49,7 +49,7 @@ public class CopyFlattenCommand extends AbstractMp3Command {
     }
 
     public static final String NAME = "copy-flatten";
-    public static final String CODE = "f";
+    public static final String CODE = "copy";
     public static final String QUIETLY = "q";
 
     @Override
