@@ -1,5 +1,6 @@
 package com.efulmo.mp3tool.command;
 
+import com.mpatric.mp3agic.ID3v24Tag;
 import com.mpatric.mp3agic.Mp3File;
 
 import java.io.File;
@@ -152,7 +153,9 @@ public class RemoveCoverCommand extends AbstractMp3Command {
     }
 
     private void removeCover(Mp3File mp3File) {
-        mp3File.getId3v2Tag().clearAlbumImage();
+        ID3v24Tag tag = new ID3v24Tag();
+        mp3File.setId3v2Tag(tag);
+        // mp3File.getId3v2Tag().clearAlbumImage();
     }
 
     private String processFileName(String path) {
