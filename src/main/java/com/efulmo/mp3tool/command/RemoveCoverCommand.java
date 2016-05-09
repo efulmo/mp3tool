@@ -1,5 +1,6 @@
 package com.efulmo.mp3tool.command;
 
+import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.ID3v24Tag;
 import com.mpatric.mp3agic.Mp3File;
 
@@ -152,10 +153,24 @@ public class RemoveCoverCommand extends AbstractMp3Command {
         return hasCover;
     }
 
-    private void removeCover(Mp3File mp3File) {
-        ID3v24Tag tag = new ID3v24Tag();
-        mp3File.setId3v2Tag(tag);
+    private void removeCover(Mp3File mp3File) throws Exception {
+        ID3v2 oldTag = mp3File.getId3v2Tag();
+        ID3v2 newTag = buildNewTag(oldTag);
+        mp3File.setId3v2Tag(newTag);
+
+        // does not work with obsolete tags
+        // https://github.com/mpatric/mp3agic/issues/84
         // mp3File.getId3v2Tag().clearAlbumImage();
+    }
+
+    private ID3v2 buildNewTag(ID3v2 oldTag) {
+        ID3v24Tag newTag = new ID3v24Tag();
+        newTag.setTitle(oldTag.getTitle());
+        newTag.setAlbum(oldTag.getAlbum());
+        newTag.setAlbumArtist(oldTag.getAlbumArtist());
+        newTag.setArtist(oldTag.getArtist());
+
+        return newTag;
     }
 
     private String processFileName(String path) {
