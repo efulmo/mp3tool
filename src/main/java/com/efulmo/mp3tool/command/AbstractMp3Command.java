@@ -19,7 +19,7 @@ public abstract class AbstractMp3Command implements Command {
 
         protected abstract boolean isArgumentCountMatched();
 
-        protected abstract boolean isCommandNameMatches();
+        protected abstract boolean isCommandNameMatched();
     }
 
     protected static final String ANSWER_YES = "y";

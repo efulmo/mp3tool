@@ -44,16 +44,16 @@ public class MP3Tool {
     }
 
     private Command getCommand(List<String> arguments) {
-        List<Command> matchesCommands = new ArrayList<Command>();
+        List<Command> matchedCommands = new ArrayList<Command>();
         for (Command aCommand : availableCommands) {
             if (aCommand.validateArguments(arguments)) {
-                matchesCommands.add(aCommand);
+                matchedCommands.add(aCommand);
             }
         }
 
         Command foundCommand = null;
-        if (matchesCommands.size() == 1) {
-            foundCommand = matchesCommands.get(0);
+        if (matchedCommands.size() == 1) {
+            foundCommand = matchedCommands.get(0);
         }
 
         return foundCommand;

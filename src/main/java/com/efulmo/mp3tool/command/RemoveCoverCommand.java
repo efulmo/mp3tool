@@ -19,7 +19,7 @@ public class RemoveCoverCommand extends AbstractMp3Command {
 
         @Override
         public boolean isValid() {
-            return isArgumentCountMatched() && isCommandNameMatches();
+            return isArgumentCountMatched() && isCommandNameMatched();
         }
 
         @Override
@@ -28,7 +28,7 @@ public class RemoveCoverCommand extends AbstractMp3Command {
         }
 
         @Override
-        protected boolean isCommandNameMatches() {
+        protected boolean isCommandNameMatched() {
             return getCommand().contains(CODE);
         }
 
